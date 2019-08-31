@@ -1,24 +1,25 @@
-td {
-  height: 5px;
-  width: 5px;
-  border: 0px solid #555;
-  text-align: center;
-  color: #555;
+h1 {
   font-family: sans-serif;
-  position: relative;
-  color: attr(data-color);
+  color: white;
 }
 
-td::after {
-  content: attr(data-index);
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  font-size: 10px;
-  color: #ccc;
+button {
+  font-size: 20px;
+  margin: 10px 5px;
+  padding: 5px 12px 7px 12px;
+  color: white;
+  background-color: rgb(7, 7, 7);
 }
 
-table {
-  border-spacing: 0;
-  border-collapse: collapse;
+button:hover {
+  background-color: rgb(50, 50, 50);
+  cursor: pointer;
+}
+
+button:focus {
+  outline: 0;
+}
+
+body {
+  background-color: rgb(7, 7, 7);
 }

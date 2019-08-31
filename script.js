@@ -1,16 +1,30 @@
-const table = document.getElementById("fire-container");
+let dataStructure = [];
+
+let fireSource = 36;
+
 const fireWidth = 200;
 const fireHeight = 80;
-const pixelSize = 2;
-let dataStructure = [];
-const canvas = document.getElementById("fire-canvas");
+const pixelSize = 3;
 const decayRange = 4;
 const windRange = 2;
+
+const canvas = document.getElementById("fire-canvas");
 canvas.width = fireWidth * pixelSize;
 canvas.height = fireHeight * pixelSize;
-const pixelCount = fireWidth * fireHeight * pixelSize;
 const widthPixels = fireWidth * pixelSize;
 const heightPixels = fireHeight * pixelSize;
+
+const stopButton = document.getElementById("fire-stop");
+stopButton.onclick = () => stopFire();
+
+const startButton = document.getElementById("fire-start");
+startButton.onclick = () => startFire();
+
+const decreaseButton = document.getElementById("fire-decrease");
+decreaseButton.onclick = () => decreaseFire();
+
+const increaseButton = document.getElementById("fire-increase");
+increaseButton.onclick = () => increaseFire();
 
 const fireColorsPalette = [
   "rgb(7,7,7)",
@@ -57,7 +71,7 @@ const start = () => {
   createFireSource();
   calculateFirePropagation();
   renderFire();
-  setInterval(updateFire, 100);
+  setInterval(updateFire, 33);
 };
 
 const createFireDataStructure = () => {
@@ -77,8 +91,30 @@ const createFireDataStructure = () => {
 
 const createFireSource = () => {
   const firstRow = dataStructure[0];
-  const setFire = firstRow.map(cell => (cell = { ...cell, intensity: 36 }));
+  const setFire = firstRow.map(
+    cell => (cell = { ...cell, intensity: fireSource })
+  );
   dataStructure[0] = setFire;
+};
+
+const decreaseFire = () => {
+  fireSource - 1 > 0 ? fireSource-- : null;
+  createFireSource();
+};
+
+const increaseFire = () => {
+  fireSource + 1 < 37 ? fireSource++ : null;
+  createFireSource();
+};
+
+const stopFire = () => {
+  fireSource = 0;
+  createFireSource();
+};
+
+const startFire = () => {
+  fireSource = 36;
+  createFireSource();
 };
 
 const calculateFirePropagation = () => {
@@ -109,7 +145,6 @@ const renderFire = () => {
         pixelSize,
         pixelSize
       );
-      // cell.innerHTML = _.intensity;
     });
   });
 };
