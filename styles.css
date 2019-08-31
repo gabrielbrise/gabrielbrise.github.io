@@ -1,0 +1,24 @@
+td {
+  height: 5px;
+  width: 5px;
+  border: 0px solid #555;
+  text-align: center;
+  color: #555;
+  font-family: sans-serif;
+  position: relative;
+  color: attr(data-color);
+}
+
+td::after {
+  content: attr(data-index);
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 10px;
+  color: #ccc;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
