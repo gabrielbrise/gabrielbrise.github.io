@@ -1,7 +1,16 @@
 const table = document.getElementById("fire-container");
-const fireWidth = 40;
-const fireHeight = 40;
+const fireWidth = 100;
+const fireHeight = 90;
+const pixelSize = 2;
 let dataStructure = [];
+const canvas = document.getElementById("fire-canvas");
+const decayRange = 4;
+const windRange = 2;
+canvas.width = fireWidth * pixelSize;
+canvas.height = fireHeight * pixelSize;
+const pixelCount = fireWidth * fireHeight * pixelSize;
+const widthPixels = fireWidth * pixelSize;
+const heightPixels = fireHeight * pixelSize;
 
 const fireColorsPalette = [
   "rgb(7,7,7)",
@@ -48,9 +57,7 @@ const start = () => {
   createFireSource();
   calculateFirePropagation();
   renderFire();
-  // setInterval(calculateFirePropagation, 1000);
-  // setInterval(renderFire, 1000);
-  setInterval(updateFire, 200);
+  setInterval(updateFire, 100);
 };
 
 const createFireDataStructure = () => {
@@ -77,13 +84,14 @@ const createFireSource = () => {
 const calculateFirePropagation = () => {
   dataStructure.map((row, rowIndex) => {
     row.map((cell, columnIndex) => {
-      const decay = Math.floor(Math.random() * 7);
+      const decay = Math.floor(Math.random() * decayRange);
       if (rowIndex === 0 || columnIndex < 0) return null;
       const newIntensity =
         dataStructure[rowIndex - 1][columnIndex].intensity - decay;
-      newIntensity >= 0 && columnIndex - Math.floor(Math.random() * 2) > 0
+      newIntensity >= 0 &&
+      columnIndex - Math.floor(Math.random() * windRange) > 0
         ? (dataStructure[rowIndex][
-            columnIndex - Math.floor(Math.random() * 2)
+            columnIndex - Math.floor(Math.random() * windRange)
           ].intensity = newIntensity)
         : null;
     });
@@ -91,13 +99,16 @@ const calculateFirePropagation = () => {
 };
 
 const renderFire = () => {
-  table.innerHTML = "";
-  const log = dataStructure.map((nested, rowIndex) => {
-    let row = table.insertRow(0);
+  dataStructure.map((nested, rowIndex) => {
     nested.map((_, columnIndex) => {
-      let cell = row.insertCell(columnIndex);
-      // cell.dataset.index = _.index;
-      cell.style.backgroundColor = fireColorsPalette[_.intensity];
+      ctx = canvas.getContext("2d");
+      ctx.fillStyle = fireColorsPalette[_.intensity];
+      ctx.fillRect(
+        widthPixels - columnIndex * pixelSize,
+        heightPixels - rowIndex * pixelSize,
+        pixelSize,
+        pixelSize
+      );
       // cell.innerHTML = _.intensity;
     });
   });
