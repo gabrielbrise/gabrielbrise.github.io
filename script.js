@@ -3,12 +3,13 @@ let dataStructure = [];
 const sliderInput = document.getElementById("fire-slider");
 let fireSource = parseInt(sliderInput.value);
 sliderInput.onmouseup = e => updateFireSource(e.target.value);
+sliderInput.ontouchend = e => updateFireSource(e.target.value);
 
 console.log(fireSource);
 
-const fireWidth = 200;
+const fireWidth = 120;
 const fireHeight = 80;
-const pixelSize = 2;
+const pixelSize = 3;
 const decayRange = 3;
 const windRange = 2;
 

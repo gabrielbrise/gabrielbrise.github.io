@@ -1,15 +1,15 @@
 h1 {
   font-family: sans-serif;
-  color: white;
+  color: rgb(199, 71, 7);
 }
 
 button {
   min-width: 40px;
   height: 40px;
   font-size: 20px;
-  margin: 10px 10px;
+  margin: 10px 6px;
   padding: 5px 12px 7px 12px;
-  color: white;
+  color: #ccc;
   background-color: rgb(7, 7, 7);
 }
 
@@ -31,6 +31,6 @@ body {
 }
 
 #fire-slider {
-  width: 400px;
+  width: 360px;
   margin: 15px 0;
 }
