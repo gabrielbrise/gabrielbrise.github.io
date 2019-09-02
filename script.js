@@ -1,11 +1,15 @@
 let dataStructure = [];
 
-let fireSource = 36;
+const sliderInput = document.getElementById("fire-slider");
+let fireSource = parseInt(sliderInput.value);
+sliderInput.onmouseup = e => updateFireSource(e.target.value);
+
+console.log(fireSource);
 
 const fireWidth = 200;
 const fireHeight = 80;
-const pixelSize = 3;
-const decayRange = 4;
+const pixelSize = 2;
+const decayRange = 3;
 const windRange = 2;
 
 const canvas = document.getElementById("fire-canvas");
@@ -15,16 +19,16 @@ const widthPixels = fireWidth * pixelSize;
 const heightPixels = fireHeight * pixelSize;
 
 const stopButton = document.getElementById("fire-stop");
-stopButton.onclick = () => stopFire();
+stopButton.onclick = () => updateFireSource(0);
 
 const startButton = document.getElementById("fire-start");
-startButton.onclick = () => startFire();
+startButton.onclick = () => updateFireSource(36);
 
 const decreaseButton = document.getElementById("fire-decrease");
-decreaseButton.onclick = () => decreaseFire();
+decreaseButton.onclick = () => updateFireSource(fireSource - 1);
 
 const increaseButton = document.getElementById("fire-increase");
-increaseButton.onclick = () => increaseFire();
+increaseButton.onclick = () => updateFireSource(fireSource + 1);
 
 const fireColorsPalette = [
   "rgb(7,7,7)",
@@ -97,23 +101,11 @@ const createFireSource = () => {
   dataStructure[0] = setFire;
 };
 
-const decreaseFire = () => {
-  fireSource - 1 > 0 ? fireSource-- : null;
-  createFireSource();
-};
-
-const increaseFire = () => {
-  fireSource + 1 < 37 ? fireSource++ : null;
-  createFireSource();
-};
-
-const stopFire = () => {
-  fireSource = 0;
-  createFireSource();
-};
-
-const startFire = () => {
-  fireSource = 36;
+const updateFireSource = intensity => {
+  console.log(intensity);
+  if (intensity < 0 || intensity > 36) return null;
+  fireSource = intensity;
+  sliderInput.value = fireSource;
   createFireSource();
 };
 
