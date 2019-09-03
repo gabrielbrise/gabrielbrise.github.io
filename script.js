@@ -5,15 +5,15 @@ let fireSource = parseInt(sliderInput.value);
 sliderInput.onmouseup = e => updateFireSource(e.target.value);
 sliderInput.ontouchend = e => updateFireSource(e.target.value);
 
-console.log(fireSource);
-
-const fireWidth = 120;
-const fireHeight = 80;
-const pixelSize = 3;
 const decayRange = 3;
 const windRange = 2;
 
 const canvas = document.getElementById("fire-canvas");
+
+const isMobileRes = () => window.screen.width < 960;
+const fireWidth = isMobileRes() ? 100 : 180;
+const fireHeight = 80;
+const pixelSize = 3;
 canvas.width = fireWidth * pixelSize;
 canvas.height = fireHeight * pixelSize;
 const widthPixels = fireWidth * pixelSize;
@@ -26,10 +26,10 @@ const startButton = document.getElementById("fire-start");
 startButton.onclick = () => updateFireSource(36);
 
 const decreaseButton = document.getElementById("fire-decrease");
-decreaseButton.onclick = () => updateFireSource(fireSource - 1);
+decreaseButton.onclick = () => updateFireSource(parseInt(fireSource) - 1);
 
 const increaseButton = document.getElementById("fire-increase");
-increaseButton.onclick = () => updateFireSource(fireSource + 1);
+increaseButton.onclick = () => updateFireSource(parseInt(fireSource) + 1);
 
 const fireColorsPalette = [
   "rgb(7,7,7)",
